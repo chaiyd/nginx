@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-docker tag $IMAGE_NAME $DOCKER_REPO:latest
-docker push $DOCKER_REPO:latest
+docker tag $IMAGE_NAME chaiyd/nginx:latest
+docker push chaiyd/nginx:latest
