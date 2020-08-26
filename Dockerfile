@@ -22,7 +22,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
         geoip-dev \
         wget
 
-ENV NGINX_VERSION 1.16.1
+ENV NGINX_VERSION 1.18.0
 ARG CONFIG=" \
         --prefix=/etc/nginx \
         --with-http_ssl_module \
@@ -80,7 +80,6 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 	             gd-dev
 
 COPY --from=builder /etc/nginx/ /etc/nginx/
-
 RUN ln -s /etc/nginx/sbin/nginx /usr/sbin/nginx
 
 EXPOSE 80
