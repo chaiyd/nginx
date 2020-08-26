@@ -1,4 +1,4 @@
-# nginx-dockerfile
+# nginx
 
 * 使用docker as build 编写dockerfile以减小docker images 大小
 * 使用时把配置放入conf.d中
