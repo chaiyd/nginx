@@ -1,9 +1,9 @@
 server {
         listen       80;
-	      server_name  _;
+	server_name  _;
         #ssl_certificate      /etc/nginx/ssl/xxx.com.pem;
         #ssl_certificate_key  /etc/nginx/ssl/xxx.com.key;
-        #ssl_protocols  TLSv1.1 TLSv1.2 TLSv1.3;
+        #ssl_protocols TLSv1.2 TLSv1.3;
         #ssl_ciphers  EECDH+ECDSA+AESGCM EECDH+aRSA+AESGCM EECDH+ECDSA+SHA384 EECDH+ECDSA+SHA256 EECDH+aRSA+SHA384 EECDH+aRSA+SHA256 EECDH+aRSA+RC4 EECDH EDH+aRSA !aNULL !eNULL !LOW !3DES !MD5 !EXP !PSK !SRP !DSS !RC4;
         #ssl_prefer_server_ciphers   on;
 
@@ -12,6 +12,7 @@ server {
           proxy_set_header Host $host;
           proxy_set_header X-NginX-Proxy true;
           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+	  proxy_set_header X-Forwarded-Proto $scheme;
           #proxy_set_header X-Forwarded-Proto https;
           #proxy_set_header X-Forwarded-Ssl off;
           proxy_pass   http://0.0.0.0;
