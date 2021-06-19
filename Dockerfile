@@ -1,4 +1,4 @@
-FROM alpine AS builder
+FROM alpine:3.13 AS builder
 
 LABEL maintainer="NGINX Docker Maintainers <chaiyd.cn@gmail.com>"
 
@@ -65,7 +65,7 @@ RUN addgroup -S nginx \
 COPY nginx.conf /etc/nginx/conf/nginx.conf
 COPY conf.d /etc/nginx/conf.d
 
-FROM alpine
+FROM alpine:3.13
 
 LABEL maintainer="NGINX Docker Maintainers <chaiyd.cn@gmail.com>"
 
