@@ -19,7 +19,7 @@ services:
 
   nginx:
     container_name: nginx
-    image: chaiyd/nginx:1.20.0
+    image: chaiyd/nginx:1.20.2
     restart: always
     volumes:
       - ./data/logs:/etc/nginx/logs
