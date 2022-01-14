@@ -1,14 +1,19 @@
 # nginx
 
 ## https://github.com/chaiyd/nginx.git
-- chaiyd/nginx:tagname
-- tagname会与nginx version尽量保持一致
+- chaiyd/nginx:tag
+- tag会与nginx version尽量保持一致
 
 
 
 ## 说明
-- 配置文件参考conf.d
-- 使用时挂载conf.d即可
+- 配置文件参考example
+
+- http 
+  - /etc/nginx/conf.d/
+- stream
+  - nginx tcp/udp 代理
+  - /etc/nginx/stream
 
 ## docker-compose
 
@@ -19,7 +24,7 @@ services:
 
   nginx:
     container_name: nginx
-    image: chaiyd/nginx:1.20.2
+    image: chaiyd/nginx:1.21.5
     restart: always
     volumes:
       - ./data/logs:/etc/nginx/logs

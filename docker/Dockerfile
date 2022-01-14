@@ -55,15 +55,14 @@ ARG CONFIG=" \
         --with-http_image_filter_module"
 
 RUN addgroup -S nginx \
-    #&& wget -c -P /tmp/ http://mirrors.sohu.com/nginx/nginx-$NGINX_VERSION.tar.gz \
     && wget -c -P /tmp/ http://nginx.org/download/nginx-$NGINX_VERSION.tar.gz \
     && cd /tmp/ && tar -zxvf nginx-$NGINX_VERSION.tar.gz \
     && cd /tmp/nginx-$NGINX_VERSION \
     && ./configure $CONFIG \
     && make && make install
 	
-COPY nginx.conf /etc/nginx/conf/nginx.conf
-COPY conf.d /etc/nginx/conf.d
+COPY conf/nginx.conf /etc/nginx/conf/nginx.conf
+#COPY conf.d /etc/nginx/conf.d
 
 FROM alpine:3.13
 
