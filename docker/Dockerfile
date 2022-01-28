@@ -22,7 +22,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
         geoip-dev \
         wget
 
-ARG NGINX_VERSION=1.21.5
+ARG NGINX_VERSION=1.21.6
 ARG CONFIG=" \
         --prefix=/etc/nginx \
         --with-http_ssl_module \
