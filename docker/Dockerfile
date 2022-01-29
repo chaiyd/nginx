@@ -1,27 +1,29 @@
-FROM alpine:3.13 AS builder
+ARG BASEIMAGE=alpine:3.15
+FROM ${BASEIMAGE} AS builder
 
 LABEL maintainer="NGINX Docker Maintainers <chaiyd.cn@gmail.com>"
 
-#RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
-  
+#RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \  
 RUN apk update  \
-    && apk add --no-cache ca-certificates curl bash tree tzdata \
+    && apk add --no-cache curl bash tree tzdata \
     && cp -rf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && echo "Asia/Shanghai" > /etc/timezone \
     && apk add --no-cache \
-                 pcre-dev \
-	             gd-dev \
-        gcc \
-        libc-dev \
-        make \
-        openssl-dev \
-        zlib-dev \
-        linux-headers \
-        curl \
-        gnupg \
-        libxslt-dev \
-        geoip-dev \
-        wget
+           pcre2-dev \
+           gd-dev \
+           gcc \
+           libc-dev \
+           make \
+           openssl-dev \
+           zlib-dev \
+           linux-headers \
+           curl \
+           gnupg \
+           libxslt-dev \
+           libedit-dev \
+           alpine-sdk \
+           geoip-dev \
+           wget
 
 ARG NGINX_VERSION=1.21.6
 ARG CONFIG=" \
@@ -60,23 +62,24 @@ RUN addgroup -S nginx \
     && cd /tmp/ && tar -zxvf nginx-$NGINX_VERSION.tar.gz \
     && cd /tmp/nginx-$NGINX_VERSION \
     && ./configure $CONFIG \
-    && make && make install
+    && make -j16 && make install
 	
 COPY conf/nginx.conf /etc/nginx/conf/nginx.conf
 #COPY conf.d /etc/nginx/conf.d
 
-FROM alpine:3.13
+FROM ${BASEIMAGE}
 
 LABEL maintainer="NGINX Docker Maintainers <chaiyd.cn@gmail.com>"
 
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
-    && apk update  \
-    && apk add --no-cache ca-certificates curl bash tree tzdata \
+#RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
+RUN apk update  \
+    && apk add --no-cache bash tzdata \
     && cp -rf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && echo "Asia/Shanghai" > /etc/timezone \
     && apk add --no-cache \
-                 pcre-dev \
-	             gd-dev
+                 pcre2-dev \
+	         gd-dev
+                  
 
 COPY --from=builder /etc/nginx/ /etc/nginx/
 RUN ln -s /etc/nginx/sbin/nginx /usr/sbin/nginx
@@ -84,6 +87,6 @@ RUN ln -s /etc/nginx/sbin/nginx /usr/sbin/nginx
 EXPOSE 80
 EXPOSE 443
 
-STOPSIGNAL SIGTERM
+STOPSIGNAL SIGQUIT
 
 CMD ["nginx", "-g", "daemon off;"]
