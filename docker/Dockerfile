@@ -5,6 +5,7 @@ LABEL maintainer="NGINX Docker Maintainers <chaiyd.cn@gmail.com>"
 
 #RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \  
 RUN apk update  \
+    && apk upgrade \
     && apk add --no-cache curl ca-certificates bash tree tzdata \
     && cp -rf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && echo "Asia/Shanghai" > /etc/timezone \
@@ -73,6 +74,7 @@ LABEL maintainer="NGINX Docker Maintainers <chaiyd.cn@gmail.com>"
 
 #RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
 RUN apk update  \
+    && apk upgrade \
     && apk add --no-cache curl ca-certificates bash tzdata \
     && cp -rf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && echo "Asia/Shanghai" > /etc/timezone \
