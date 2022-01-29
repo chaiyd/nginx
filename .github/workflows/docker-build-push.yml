@@ -67,6 +67,7 @@ jobs:
           image: |
             chaiyd/nginx:${{ env.NGINX_VERSION }}
           acs-report-enable: true
+          fail-build: false
 
       - name: upload Anchore scan SARIF report
         uses: github/codeql-action/upload-sarif@v1
