@@ -63,8 +63,9 @@ RUN addgroup -S nginx \
     && cd /tmp/ && tar -zxvf nginx-$NGINX_VERSION.tar.gz \
     && cd /tmp/nginx-$NGINX_VERSION \
     && ./configure $CONFIG \
-    && make -j16 && make install
-	
+    && make -j$(nproc) \
+    && make install
+    
 COPY conf/nginx.conf /etc/nginx/conf/nginx.conf
 #COPY conf.d /etc/nginx/conf.d
 
