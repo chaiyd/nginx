@@ -3,7 +3,7 @@ FROM ${BASEIMAGE} AS builder
 
 LABEL maintainer="NGINX Docker Maintainers <chaiyd.cn@gmail.com>"
 
-#RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \  
+#RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 RUN apk update  \
     && apk upgrade \
     && apk add --no-cache curl ca-certificates bash tree tzdata \
