@@ -1,20 +1,18 @@
-stream {
 
-   upstream proxy_pool {
-       hash $remote_addr consistent;
-       server xxxxxx.com:6688 weight=5 max_fails=3 fail_timeout=30s;
-   }
+upstream proxy_pool {
+    hash $remote_addr consistent;
+    server xxxxxx.com:6688 weight=5 max_fails=3 fail_timeout=30s;
+}
 
 
-   server {
-       listen       80;
-       proxy_timeout 300s;
-       proxy_pass proxy_pool;
-   }
+server {
+    listen       80;
+    proxy_timeout 300s;
+    proxy_pass proxy_pool;
+}
 
-   server {
-        listen       80;
-        proxy_timeout 300s;
-        proxy_pass baidu.org:5555;
-   }
+server {
+     listen       80;
+     proxy_timeout 300s;
+     proxy_pass baidu.org:5555;
 }
